@@ -13,25 +13,25 @@ The MVP build of FlashFX, a motion design editor that runs entirely in the brows
 - Properties panel with separate tabs for shapes, text, lines and images, and an FX shortcuts tab.
 - Grouping and ungrouping, duplicate, select all, nudge with the arrow keys, canvas and layer context menus.
 - Configurable grid, snapping with visual snap guides, and zoom from 25% to 300%.
-- Undo and redo history, and a clipboard for copying elements.
+- Undo and redo history.
 - Canvas background built from stacked linear or radial gradient layers with colour stops and blend modes.
 - Materials for shapes (matte, glossy, metallic, glass, neon, holographic, plastic) with shadow and glow effects.
 - Text settings including font size, letter spacing and an advanced text panel; a built-in list of Google Fonts plus custom fonts.
-- Per-user default shape settings and an editor settings dialog.
+- Default shape settings saved in the browser, and an editor settings dialog.
 
 ### Images
 
 - Import images from disk into a media pool stored in the browser (IndexedDB), with rename, delete and metadata dialogs.
 - Image search through the Google Custom Search API and image generation through the OpenAI images API (DALL-E 3).
-- Image adjustments: brightness, contrast, exposure, gamma, temperature, tint, vibrance, saturation, hue, lightness, grayscale, invert, sepia, three-way colour balance, levels, RGB channels, gaussian blur and motion blur, with a WebGL filter path.
+- Image adjustments: brightness, contrast, exposure, gamma, temperature, tint, vibrance, saturation, hue, lightness, grayscale, invert, sepia, three-way colour balance, levels, RGB channels, gaussian, box and surface blur, sharpen and clarity, with a WebGL filter path.
 
 ### Animation
 
 - Keyframe animation engine with one track per property. Animatable properties: x, y, width, height, rotation, opacity, fill, stroke, stroke width, border radius, scale X, scale Y, shadow blur, shadow X, shadow Y, font size and letter spacing.
 - Easing functions: linear, ease, ease-in/out, quadratic, cubic, cosine, exponential, circular, elastic, back and bounce, with Bezier handles on keyframes and an interpolation graph.
 - Two timelines: a general timeline of clips and an animation timeline of keyframes, separated by a resizable splitter.
-- Clip operations: rename, duplicate, speed and duration, delete all keyframes, delete; lock and mute per clip.
-- Timeline markers with names and colours, snap to markers, loop playback.
+- Clip operations: cut, rename, duplicate, speed and duration, delete all keyframes, delete; lock and disable per clip.
+- Timeline markers with names and colours, and snap to markers.
 - Sequences with a frame rate of 24, 25, 30, 60 or 120 fps and a set duration.
 - Animation favorites saved per user.
 
@@ -49,19 +49,19 @@ The MVP build of FlashFX, a motion design editor that runs entirely in the brows
 - Cloud projects in Supabase with per-user storage tracking (100 MB default limit) and a storage indicator.
 - Project files in a `.ffxproj` format (a ZIP with a manifest, canvas, shapes, keyframes, properties and assets) that can be downloaded and loaded again.
 - Preview auto-backup every 60 seconds, with a local fallback for guests.
-- A JSON editor for the whole project and for single elements, built on Monaco with schema validation.
+- A JSON editor for the whole project and for single elements, with schema validation through Ajv.
 - Reusable presets, stored in Supabase for signed-in users and in local storage for guests.
 
 ### Export
 
 - Export Design: the whole canvas as PNG or JPEG, at the project size, Full HD, 4K or a custom resolution.
-- Export selection, export each shape as a PNG in a ZIP, and export stacked layers as a ZIP.
+- Export Layers (Stacked): the visible layers as separate PNG files in a ZIP. The export code also contains selection and per-shape ZIP modes, but the export dialog does not offer them.
 - Render Sequence: frame-by-frame rendering of the active sequence to video through `MediaRecorder` (WebM with VP9 or VP8, falling back to MP4 where the browser supports it), with progress and cancel.
 
 ### Accounts
 
 - Supabase auth with email and password, username sign-in, and Google and GitHub OAuth.
-- Password strength check on sign-up, profile avatars in a Supabase storage bucket.
+- Password strength check on sign-up.
 - Guest mode, enabled by default on first load.
 
 ### Onboarding
@@ -201,7 +201,7 @@ On macOS, `Cmd` works in place of `Ctrl`.
 - Vite 5
 - Tailwind CSS, PostCSS and Autoprefixer
 - Supabase (`@supabase/supabase-js`) for auth, database and storage
-- Monaco Editor and Ajv for the JSON editor and schema validation
+- Ajv for JSON schema validation (`monaco-editor` is listed as a dependency but is not imported anywhere)
 - html-to-image, JSZip and file-saver for export
 - lucide-react for icons
 - Browser APIs: Canvas, WebGL, MediaRecorder and IndexedDB
